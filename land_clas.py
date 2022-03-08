@@ -26,7 +26,7 @@ COLOR_MAP = [
 
 def _save_palette(label, save_path):
     bin_colormap = np.zeros((256, 3))
-    for i in range(8):
+    for i in range(9):
         bin_colormap[i, :] = COLOR_MAP[i]
     bin_colormap = bin_colormap.astype(np.uint8)
     visualimg  = Image.fromarray(label, "P")
@@ -36,8 +36,8 @@ def _save_palette(label, save_path):
 
 
 if __name__ == "__main__":
-    img_path = "E:/MyAIDatabase/landclas/raw.tif"
-    onnx_path = "GhostNet_x1_3.onnx"
+    img_path = "E:/MyAIDatabase/landclas/nj.tif"
+    onnx_path = "GhostNet_x1_3_9c.onnx"
     save_path = "E:/MyAIDatabase/landclas/landuse.png"
     block_size = 128
     ort_sess = onnxruntime.InferenceSession(onnx_path)  # classes is 8
