@@ -28,7 +28,6 @@ def _save_palette(label, save_path):
     bin_colormap = np.zeros((256, 3))
     for i in range(8):
         bin_colormap[i, :] = COLOR_MAP[i]
-    # bin_colormap[:46, :] = np.random.randint(0, 255, (46, 3))  # test
     bin_colormap = bin_colormap.astype(np.uint8)
     visualimg  = Image.fromarray(label, "P")
     palette = bin_colormap
@@ -41,7 +40,7 @@ if __name__ == "__main__":
     onnx_path = "GhostNet_x1_3.onnx"
     save_path = "E:/MyAIDatabase/landclas/landuse.png"
     block_size = 128
-    ort_sess = onnxruntime.InferenceSession(onnx_path)
+    ort_sess = onnxruntime.InferenceSession(onnx_path)  # classes is 8
     raster = Raster(img_path, to_uint8=True)
     rows = ceil(raster.height / block_size)
     cols = ceil(raster.width / block_size)

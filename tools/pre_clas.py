@@ -1,6 +1,6 @@
 import sys
 import os.path as osp
-sys.path.insert(0, osp.abspath("."))  # add workspace
+sys.path.insert(0, osp.abspath(".."))  # add workspace
 
 import os
 import argparse
@@ -23,23 +23,25 @@ def _mkdirs(save_folder, number):
 parser = argparse.ArgumentParser(description="input parameters")
 parser.add_argument("--data_folder", type=str, required=True, \
                     help="The folder of image titles data.")
+parser.add_argument("--onnx_path", type=str, required=True, \
+                    help="The path of onnx file, `GhostNet_x1_3.onnx` is the default.")
 parser.add_argument("--num_classes", type=int, default=9, \
                     help="The number of classes, `9` is the default.")
 parser.add_argument("--save_folder", type=str, default="output", \
                     help="The folder path to save the results, `output` is the default.")
-parser.add_argument("--onnx_path", type=str, default="GhostNet_x1_3.onnx", \
-                    help="The path of onnx file, `GhostNet_x1_3.onnx` is the default.")
 
 
 if __name__ == "__main__":
     # init
     args = parser.parse_args()
     data_folder = args.data_folder
+    onnx_path = args.onnx_path
     if not osp.exists(data_folder):
         raise ValueError("The `data_folder` is not exists!")
+    if not osp.exists(onnx_path):
+        raise ValueError("The `onnx_path` is not exists!")
     num_classes = args.num_classes
     save_folder = args.save_folder
-    onnx_path = args.onnx_path
     files = []
     features = []
     # mkdir
@@ -55,7 +57,6 @@ if __name__ == "__main__":
         files.append(name)
         features.append(ort_outs)
     features = np.array(features)
-    print(features.shape)
     print(features.shape)
     # kmeans
     kmeans = KMeans(n_clusters=num_classes) 

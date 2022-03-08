@@ -1,6 +1,6 @@
 import sys
 import os.path as osp
-sys.path.insert(0, osp.abspath("."))  # add workspace
+sys.path.insert(0, osp.abspath(".."))  # add workspace
 
 import os
 import argparse
@@ -37,4 +37,6 @@ parser.add_argument("--save_folder", type=str, default="output", \
 
 if __name__ == "__main__":
     args = parser.parse_args()
+    if not osp.exists(args.image_path):
+        raise ValueError("The `image_path` is not exists!")
     split_data(args.image_path, args.block_size, args.save_folder)
