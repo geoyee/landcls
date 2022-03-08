@@ -4,3 +4,9 @@ onnx
 onnxruntime
 sklearn
 tqdm
+# # use https://www.lfd.uci.edu/~gohlke/pythonlibs/#gdal in windows
+# GDAL
+# # for train
+# paddlepaddle
+# paddleclase
+# paddle2onnx
