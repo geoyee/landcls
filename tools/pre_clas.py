@@ -3,6 +3,7 @@ import os.path as osp
 sys.path.insert(0, osp.abspath("."))  # add workspace
 
 import os
+import argparse
 import shutil
 import numpy as np
 import onnxruntime
@@ -19,18 +20,33 @@ def _mkdirs(save_folder, number):
     print("Create successfully!")
 
 
+parser = argparse.ArgumentParser(description="input parameters")
+parser.add_argument("--data_folder", type=str, required=True, \
+                    help="The folder of image titles data.")
+parser.add_argument("--num_classes", type=int, default=8, \
+                    help="The number of classes, `8` is the default.")
+parser.add_argument("--save_folder", type=str, default="output", \
+                    help="The folder path to save the results, `output` is the default.")
+parser.add_argument("--onnx_path", type=str, default="GhostNet_x1_3.onnx", \
+                    help="The path of onnx file, `GhostNet_x1_3.onnx` is the default.")
+
+
 if __name__ == "__main__":
     # init
-    data_folder = "dataset"
-    save_folder = "output"
-    num_classes = 8
+    args = parser.parse_args()
+    data_folder = args.data_folder
+    if not osp.exists(data_folder):
+        raise ValueError("The `data_folder` is not exists!")
+    num_classes = args.num_classes
+    save_folder = args.save_folder
+    onnx_path = args.onnx_path
     files = []
     features = []
     # mkdir
     _mkdirs(save_folder, num_classes)
     # extract feature
     names = os.listdir(data_folder)
-    ort_sess = onnxruntime.InferenceSession("GhostNet_x1_3.onnx")
+    ort_sess = onnxruntime.InferenceSession(onnx_path)
     for name in tqdm(names):
         img_path = osp.join(data_folder, name)
         x = pre_process(img_path)
