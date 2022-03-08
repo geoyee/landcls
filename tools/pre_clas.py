@@ -23,8 +23,8 @@ def _mkdirs(save_folder, number):
 parser = argparse.ArgumentParser(description="input parameters")
 parser.add_argument("--data_folder", type=str, required=True, \
                     help="The folder of image titles data.")
-parser.add_argument("--num_classes", type=int, default=8, \
-                    help="The number of classes, `8` is the default.")
+parser.add_argument("--num_classes", type=int, default=9, \
+                    help="The number of classes, `9` is the default.")
 parser.add_argument("--save_folder", type=str, default="output", \
                     help="The folder path to save the results, `output` is the default.")
 parser.add_argument("--onnx_path", type=str, default="GhostNet_x1_3.onnx", \
