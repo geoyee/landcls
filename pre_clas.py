@@ -26,7 +26,7 @@ def _mkdirs(save_folder, number):
 
 if __name__ == "__main__":
     # init
-    data_folder = "rscls"
+    data_folder = "dataset"
     save_folder = "output"
     num_classes = 8  # 八大类：耕地、园地、林地、牧草地、居民点及工矿用地、交通用地、水域、未利用地
     files = []
@@ -53,6 +53,6 @@ if __name__ == "__main__":
     # move file
     labels = kmeans.labels_
     for f, lab in tqdm(zip(files, labels)):
-        raw_path = osp.join("rscls", f)
+        raw_path = osp.join(data_folder, f)
         save_path = osp.join(save_folder, str(lab), f)
         shutil.copy(raw_path, save_path)
